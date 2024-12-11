@@ -1,0 +1,43 @@
+name: Build FrankenPHP
+
+on:
+  push:
+    branches:
+      - main # Jalankan workflow saat ada perubahan di branch main
+  pull_request:
+    branches:
+      - main # Jalankan workflow saat ada PR ke branch main
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04 # Gunakan runner Ubuntu 20.04
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v3
+
+      - name: Set up PHP 8.0
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.0" # Tentukan versi PHP 8.0 yang sesuai
+
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y build-essential autoconf bison re2c libxml2-dev libssl-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libfreetype6-dev libicu-dev libzip-dev
+
+      - name: Download FrankenPHP
+        run: |
+          git clone https://github.com/frankenphp/frankenphp.git
+          cd frankenphp
+          # Jika ada instruksi spesifik lain, bisa ditambahkan di sini
+
+      - name: Build FrankenPHP
+        run: |
+          cd frankenphp
+          ./build.sh  # Gunakan skrip build atau perintah yang sesuai untuk kompilasi FrankenPHP
+
+      - name: Verify FrankenPHP build
+        run: |
+          cd frankenphp
+          ./php -v  # Memeriksa versi FrankenPHP yang telah dibangun
