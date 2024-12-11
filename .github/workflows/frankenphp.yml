@@ -35,7 +35,7 @@ jobs:
       - name: Build FrankenPHP
         run: |
           cd frankenphp
-          ./build.sh  # Gunakan skrip build atau perintah yang sesuai untuk kompilasi FrankenPHP
+          ./build-static.sh  # Gunakan skrip build atau perintah yang sesuai untuk kompilasi FrankenPHP
 
       - name: Verify FrankenPHP build
         run: |
